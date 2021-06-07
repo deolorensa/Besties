@@ -29,6 +29,18 @@ include 'dbconnect.php';
                     <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">besties@gmail.com</a>
                     <i class="fa fa-phone mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">085746431180</a>
+                    <?php
+				            if(!isset($_SESSION['log'])){
+				        	echo '';
+				            } else {
+                            echo '
+                                <i class="fa fa-user mx-2"></i>
+                                <a class="navbar-sm-brand text-light text-decoration-none" href="">Hi, <b>'.$_SESSION["name"].'</b></a>
+                            ';
+					        					
+				            }
+				    ?>
+
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -46,7 +58,7 @@ include 'dbconnect.php';
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.php">
                 <img src="assets/img/logo.png" width="250px">
             </a>
 
@@ -56,7 +68,7 @@ include 'dbconnect.php';
 
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
-                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
@@ -67,9 +79,11 @@ include 'dbconnect.php';
                             <a class="nav-link" href="shop.php">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.php">News</a>
+                            <a class="nav-link" href="blog.php">News</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="daftarorder.php">Daftar Order</a>
+                        </li>
                         <?php
 				            if(!isset($_SESSION['log'])){
 				        	echo '
@@ -78,14 +92,12 @@ include 'dbconnect.php';
 					        ';
 				            } else {
 					
+//<li class="nav-item">Halo, '.$_SESSION["name"].'</li>
+
 					        if($_SESSION['role']=='Member'){
-					        echo '
-					        <li class="nav-item" style="color:white">Halo, '.$_SESSION["name"].'</li>
-					        <li class="nav-item"><a class="nav-link" href="logout.php">Keluar?</a></li>
-				        	';
+					        echo '<li class="nav-item"><a class="nav-link" href="logout.php">Keluar?</a></li>';
 					        } else {
 					        echo '
-					        <li class="nav-item" style="color:white">Halo, '.$_SESSION["name"].'</li>
 				        	<li class="nav-item"><a class="nav-link" href="admin">Admin Panel</a></li>
 					        <li class="nav-item"><a class="nav-link" href="logout.php">Keluar?</a></li>
 					        ';
@@ -93,30 +105,45 @@ include 'dbconnect.php';
 					
 				            }
 				            ?>
+                        
 
                     </ul>
                 </div>
-                <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                    </a>
+
+                <?php
+
+                            $totalItems=0;
+                            
+				            if(isset($_SESSION['log'])){
+
+                            $query="select SUM(qty) totalitems from cart inner join detailorder on detailorder.orderid=cart.orderid INNER JOIN produk ON produk.idproduk=detailorder.idproduk where userid='".$_SESSION['id']."' and status='Cart'";
+                            
+                            $items = mysqli_query($conn,$query);
+
+                            while($p=mysqli_fetch_array($items)){
+                                
+                                    $totalItems=$p['totalitems'];
+                                }
+
+				        	
+				            } 
+				    ?>
+                    <div class="navbar align-self-center d-flex">
                     <a class="nav-icon position-relative text-decoration-none" href="cart.php">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-                    </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+                        <?php
+
+                        if($totalItems>0)
+                        {
+                            echo '
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">'.$totalItems.'</span>
+                            ';
+                        }
+
+                        ?>
                     </a>
                 </div>
+                
             </div>
 
         </div>

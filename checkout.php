@@ -41,8 +41,7 @@ if(isset($_POST["checkout"])){
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.ico">
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/templatemo.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
@@ -66,6 +65,18 @@ if(isset($_POST["checkout"])){
                     <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">besties@gmail.com</a>
                     <i class="fa fa-phone mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">085746431180</a>
+                    <?php
+				            if(!isset($_SESSION['log'])){
+				        	echo '';
+				            } else {
+                            echo '
+                                <i class="fa fa-user mx-2"></i>
+                                <a class="navbar-sm-brand text-light text-decoration-none" href="">Hi, <b>'.$_SESSION["name"].'</b></a>
+                            ';
+					        					
+				            }
+				    ?>
+
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -93,7 +104,7 @@ if(isset($_POST["checkout"])){
 
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
-                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
@@ -105,6 +116,9 @@ if(isset($_POST["checkout"])){
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="blog.php">News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="daftarorder.php">Daftar Order</a>
                         </li>
                         <?php
 				            if(!isset($_SESSION['log'])){
@@ -131,6 +145,7 @@ if(isset($_POST["checkout"])){
 
                     </ul>
                 </div>
+
                 <?php
 
                             $totalItems=0;
@@ -164,122 +179,105 @@ if(isset($_POST["checkout"])){
                         ?>
                     </a>
                 </div>
+                
             </div>
 
         </div>
     </nav>
     <!-- Close Header -->
-<!-- breadcrumbs -->
-	<div class="breadcrumbs">
-		<div class="container">
-			<ol class="breadcrumb breadcrumb1">
-				<li><a href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-				<li class="active">Checkout</li>
-			</ol>
-		</div>
-	</div>
-<!-- //breadcrumbs -->
+    
 <!-- checkout -->
-	<div class="checkout">
-		<div class="container">
-			<h1>Terima kasih, <?=$_SESSION['name']?> telah membeli <?php echo $itungtrans3 ?> barang di Besties</span></h1>
-			<div class="checkout-right">
-				<table class="timetable_sub">
-					<thead>
-						<tr>
-							<th>No.</th>	
-							<th>Produk</th>
-							<th>Nama Produk</th>
-							<th>Jumlah</th>
-							
-						
-							<th>Sub Total</th>
-							<th>Hapus</th>
-						</tr>
-					</thead>
-					
-					<?php 
-						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
-						$no=1;
-						while($b=mysqli_fetch_array($brg)){
+<div class="product about-product" style="padding-top:100px;">
+        <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">No</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Available</th>
+                            <th scope="col" class="text-center" width="220px">Quantity</th>
+                            <th scope="col" class="text-right">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-					?>
-					<tr class="rem1"><form method="post">
-						<td class="invert"><?php echo $no++ ?></td>
-						<td class="invert"><a href="product.php?idproduk=<?php echo $b['idproduk'] ?>"><img src="<?php echo $b['gambar'] ?>" width="100px" height="100px" /></a></td>
-						<td class="invert"><?php echo $b['namaproduk'] ?></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                     
-									<h4><?php echo $b['qty'] ?></h4>
-								</div>
-							</div>
-						</td>
-				
-						<td class="invert">Rp<?php echo number_format($b['hargaafter']*$b['qty']) ?></td>
-						<td class="invert">
-							<div class="rem">
-							
-								<input type="submit" name="update" class="form-control" value="Update" \>
-								<input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
-								<input type="submit" name="hapus" class="form-control" value="Hapus" \>
-							</form>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
-					<?php
-						}
-					?>
-					
-								<!--quantity-->
-									<script>
-									$('.value-plus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-										divUpd.text(newVal);
-									});
+                        <?php
 
-									$('.value-minus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-										if(newVal>=1) divUpd.text(newVal);
-									});
-									</script>
-								<!--quantity-->
-				</table>
-			</div>
-			<div class="checkout-left">	
-				<div class="checkout-left-basket">
-					<h4>Total Harga yang harus dibayar saat ini</h4>
-					<ul>
-						<?php 
-						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
-						$no=1;
-						$subtotal = 0;
-						while($b=mysqli_fetch_array($brg)){
-						$hrg = $b['hargaafter'];
-						$qtyy = $b['qty'];
-						$totalharga = $hrg * $qtyy;
-						$subtotal += $totalharga;
-						}
-						?>
-						
-						<h1><input type="text" value="Rp<?php echo number_format($subtotal) ?>" disabled \></h1>
-					</ul>
-				</div>
-				<br>
-				<div class="checkout-left-basket" style="width:80%;margin-top:60px;">
-					<div class="checkout-left-basket">
-					<h4>Kode Order Anda</h4>
-					<h1><input type="text" value="<?php echo $orderidd ?>" disabled \></h1>
-				</div>
-				</div>
+                            $query="select * from cart inner join detailorder on detailorder.orderid=cart.orderid INNER JOIN produk ON produk.idproduk=detailorder.idproduk where userid='$uid' and status='Cart'";
+                            $keranjang = mysqli_query($conn,$query);
+                            $subTotalHarga=0;
+                            $totalHarga=0;
+                            $no=1;
+                            while($p=mysqli_fetch_array($keranjang)){
+                                
+                                ?>
+                                        <tr>
+                                        <form method="POST" action="cart.php">
+                                            <td><?php echo $no ?></td>
+                                            <td><img src="<?php echo $p['gambar']?>" style=" width:220px" /> </td>
+                                            <td><?php echo $p['namaproduk']?></br></td>
+                                            <td>In stock</td>
+                                            <td><input class="form-control" type="text" readonly value="<?php echo $p['qty']?>" /></td>
+                                            <td class="text-right">Rp. <?php echo number_format($p['qty']*$p['hargabefore'])?></td>
+                                        </form>
+                                        </tr>
+                                                                                
+                                <?php
+
+                                    $subTotalHarga=$subTotalHarga+$p['qty']*$p['hargabefore'];
+                                    $no++;
+
+                                }
+                                $totalHarga=$subTotalHarga+10000;
+
+                        ?>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sub-Total</td>
+                            <td class="text-right">Rp. <?php echo number_format($subTotalHarga)?></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Ongkos Kirim</td>
+                            <td class="text-right">Rp. <?php echo number_format(10000)?></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong>Rp. <?php echo number_format($totalHarga)?></strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>No. Pesanan</strong></td>
+                            <td class="text-right"><strong><?php echo $orderidd ?></td>
+                        </tr>
+                        <tr>
+                                <td colspan="6"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+</div>
+                            </div>
+                            </div>
 				
 				<div class="clearfix"> </div>
 			</div>

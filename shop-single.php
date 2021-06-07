@@ -86,8 +86,7 @@ if(isset($_POST['addtoCart']))
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.ico">
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/templatemo.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
@@ -124,6 +123,7 @@ if(isset($_POST['addtoCart']))
 					        					
 				            }
 				    ?>
+
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -151,7 +151,7 @@ if(isset($_POST['addtoCart']))
 
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
-                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
@@ -164,9 +164,10 @@ if(isset($_POST['addtoCart']))
                         <li class="nav-item">
                             <a class="nav-link" href="blog.php">News</a>
                         </li>
-                        
-                        
-				            <?php
+                        <li class="nav-item">
+                            <a class="nav-link" href="daftarorder.php">Daftar Order</a>
+                        </li>
+                        <?php
 				            if(!isset($_SESSION['log'])){
 				        	echo '
 					        <li class="nav-item"><a class="nav-link" href="registered.php"> Daftar</a></li>
@@ -174,10 +175,10 @@ if(isset($_POST['addtoCart']))
 					        ';
 				            } else {
 					
+//<li class="nav-item">Halo, '.$_SESSION["name"].'</li>
+
 					        if($_SESSION['role']=='Member'){
-					        echo '
-					        <li class="nav-item"><a class="nav-link" href="logout.php">Keluar?</a></li>
-				        	';
+					        echo '<li class="nav-item"><a class="nav-link" href="logout.php">Keluar?</a></li>';
 					        } else {
 					        echo '
 				        	<li class="nav-item"><a class="nav-link" href="admin">Admin Panel</a></li>
@@ -191,6 +192,7 @@ if(isset($_POST['addtoCart']))
 
                     </ul>
                 </div>
+
                 <?php
 
                             $totalItems=0;
@@ -224,6 +226,7 @@ if(isset($_POST['addtoCart']))
                         ?>
                     </a>
                 </div>
+                
             </div>
 
         </div>

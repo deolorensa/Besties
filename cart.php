@@ -49,8 +49,7 @@ if(isset($_POST["update"])){
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.ico">
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/templatemo.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
@@ -79,6 +78,7 @@ if(isset($_POST["update"])){
 					        					
 				            }
 				    ?>
+
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -106,7 +106,7 @@ if(isset($_POST["update"])){
 
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
-                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
@@ -118,6 +118,9 @@ if(isset($_POST["update"])){
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="blog.php">News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="daftarorder.php">Daftar Order</a>
                         </li>
                         <?php
 				            if(!isset($_SESSION['log'])){
@@ -140,8 +143,11 @@ if(isset($_POST["update"])){
 					
 				            }
 				            ?>
-                        </ul>
+                        
+
+                    </ul>
                 </div>
+
                 <?php
 
                             $totalItems=0;
@@ -175,6 +181,7 @@ if(isset($_POST["update"])){
                         ?>
                     </a>
                 </div>
+                
             </div>
 
         </div>

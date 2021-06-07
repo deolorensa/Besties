@@ -48,8 +48,7 @@ if(isset($_POST["update"])){
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo.ico">
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/templatemo.css">
-    <link rel="stylesheet" href="assets/css/order.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 	
 
     <!-- Load fonts style after rendering the layout styles -->
@@ -188,20 +187,22 @@ if(isset($_POST["update"])){
     </nav>
     <!-- Close Header -->
 <!-- checkout -->
-	<div class="checkout">
-		<div class="container">
-			<h2>Kamu memiliki <span><?php echo $itungtrans3 ?> transaksi</span></h2>
-			<div class="checkout-right">
-				<table class="timetable_sub">
-					<thead>
-						<tr>
-							<th>No.</th>	
-							<th>Kode Order</th>
-							<th>Tanggal Order</th>
-							<th>Total</th>
-							<th>Status</th>
-						</tr>
-					</thead>
+<div class="product about-product" style="padding-top:100px;">
+        <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Kode Order</th>
+                            <th scope="col">Tanggal Order</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 					
 					<?php 
 					
